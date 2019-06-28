@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="./layui-v2.5.4/layui/css/layui.css">
+    <script src="./jquery-3.2.1/jquery-3.2.1.min.js"></script>
+    <script src="./layui-v2.5.4/layui/layui.js"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">后台管理</div>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+            <a href="javascript:;">
+                <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                管理员
+                </a></li>
+        </ul>
+    </div>
+
+
+    <div class="layui-body">
+        <div class="layui-form">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="200">
+                    <col width="200">
+                    <col width="200">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>用户ID</th>
+                    <th>用户名</th>
+                    <th>发消息</th>
+                </tr>
+                </thead>
+                <tbody id="user_list">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="layui-footer">
+    </div>
+</div>
+<script>
+    layui.use('element', function () {
+        var element = layui.element;
+
+    });
+    $.ajax({
+        url:"/show_user",
+        type:"get",
+        dataType:"json",
+        success:function (json) {
+            var html="";
+            for(i=0;i<json.length;i++){
+                html+='<tr>'+
+                    '<td>'+json[i].id+'</td>'+
+                    '<td>'+json[i].name+'</td>'+
+                    '<td><input type="text" id='+json[i].id+'><button class="layui-btn layui-btn-primary layui-btn-sm"onclick="show_hide('+json[i].id+')">发送</button></td>'+
+                    '</tr>';
+            }
+            $("#user_list").html(html);
+        }
+    })
+    function show_hide(uid){
+        var text=$("#"+uid).val();
+        console.log(text);
+        $.ajax({
+            url:"/add_new",
+            data:{"newText":text,
+                "acceptUser":uid,
+                "sender":"系统"
+            },
+            type:"post",
+            dataType:"json",
+            success:function (obj) {
+                if(obj.state==1){
+                    alert("发送成功");
+                }else {
+                    alert("发送失败");
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

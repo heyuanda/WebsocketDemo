@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link rel="stylesheet" href="./layui-v2.5.4/layui/css/layui.css">
+    <script src="./jquery-3.2.1/jquery-3.2.1.min.js"></script>
+    <script src="./layui-v2.5.4/layui/layui.js"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo" onclick="location.href='/index'">返回首页</div>
+    </div>
+
+
+    <div class="layui-body" style="top: 80px">
+        <form class="layui-form" action="/user_reg" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label">昵称</label>
+                <div class="layui-input-block">
+                    <input name="name" class="layui-input" type="text" placeholder="请输入昵称"  style="width: 250px">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-block">
+                    <input name="password" class="layui-input" type="password" placeholder="请输入密码" style="width: 250px">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button type="submit" class="layui-btn" lay-filter="demo1" lay-submit="">注册</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="layui-footer">
+    </div>
+</div>
+<script>
+    layui.use('element', function () {
+        var element = layui.element;
+
+    });
+
+</script>
+</body>
+</html>

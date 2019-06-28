@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meifang.article.dao.mapper.NewsMapper" >
+    <resultMap id="BaseResultMap" type="com.meifang.news.dao.domain.News" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="new_text" property="newText" jdbcType="VARCHAR" />
+        <result column="accept_user" property="acceptUser" jdbcType="INTEGER" />
+        <result column="sender" property="sender" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+</mapper>

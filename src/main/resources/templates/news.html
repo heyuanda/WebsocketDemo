@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>消息中心</title>
+    <link rel="stylesheet" href="./layui-v2.5.4/layui/css/layui.css">
+    <script src="./jquery-3.2.1/jquery-3.2.1.min.js"></script>
+    <script src="./layui-v2.5.4/layui/layui.js"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo" onclick="location.href='/index'">返回首页</div>
+        <ul class="layui-nav layui-layout-right" id="user_info">
+        </ul>
+    </div>
+
+    <div class="layui-body" id="detail">
+        <div class="layui-form">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="100">
+                    <col width="100">
+                    <col width="400">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>发信人</th>
+                    <th>发送时间</th>
+                    <th>内容</th>
+                </tr>
+                </thead>
+                <tbody id="news_list">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="layui-footer">
+    </div>
+</div>
+<script>
+    $.ajax({
+        url: "/getUser",
+        type: "get",
+        dataType: "json",
+        success: function (json) {
+            if(json.state==1){
+                var html='<li class="layui-nav-item">'+
+                    '<a href="javascript:;">'+
+                    '<img src="http://t.cn/RCzsdCq" class="layui-nav-img">'+
+                json.data.name+
+                '</a></li>';
+
+                $("#user_info").html(html);
+            }
+        }
+
+    })
+$(document).ready(function () {
+    $.ajax({
+        url:"/news_list",
+        type:"get",
+        dataType:"json",
+        success:function (json) {
+            var html="";
+            for(i=0;i<json.length;i++){
+                html+='<tr>'+
+                    '<td>'+json[i].sender+'</td>'+
+                    '<td>'+json[i].createTime+'</td>'+
+                    '<td>'+json[i].newText+'</td>'+
+                    '</tr>';
+            }
+            $("#news_list").html(html);
+        }
+    })
+})
+    layui.use('element', function () {
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>
