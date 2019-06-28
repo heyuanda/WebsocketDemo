@@ -5,5 +5,9 @@
         <id column="id" property="id" jdbcType="INTEGER" />
         <result column="name" property="name" jdbcType="VARCHAR" />
         <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="last_break" property="lastBreak" jdbcType="TIMESTAMP" />
     </resultMap>
+    <update id="setLastBreak" parameterType="com.meifang.news.dao.domain.User">
+        update user set last_break=#{lastBreak} where id=#{id}
+    </update>
 </mapper>

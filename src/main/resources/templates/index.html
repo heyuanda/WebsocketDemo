@@ -48,6 +48,10 @@
                 //判断当前浏览器是否支持WebSocket
                 if ('WebSocket' in window) {
                     websocket = new WebSocket("ws://" + document.location.host + "/websocket/" + json.data.id);
+                    $.ajax({
+                        url:"new_count",
+                        type:"get"
+                    })
                 } else {
                     alert('当前浏览器 Not support websocket')
                 }
@@ -69,6 +73,10 @@
 
                 //连接关闭的回调方法
                 websocket.onclose = function () {
+                    $.ajax({
+                        url:"/close",
+                        type:"get"
+                    })
                     setMessageInnerHTML("WebSocket连接关闭");
                 }
 

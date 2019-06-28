@@ -22,11 +22,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(User user) {
-        return  userMapper.select(user).get(0);
+        List<User> users=userMapper.select(user);
+        return  users.size()>0?users.get(0):null;
     }
 
     @Override
     public List<User> getUsers() {
         return userMapper.selectAll();
+    }
+
+    @Override
+    public Integer setLastBreak(User user) {
+        return userMapper.setLastBreak(user);
     }
 }

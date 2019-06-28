@@ -1,6 +1,7 @@
 package com.meifang.news.dao.domain;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "user")
 public class User {
@@ -13,6 +14,17 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "last_break")
+    private Date lastBreak;
+
+    public Date getLastBreak() {
+        return lastBreak;
+    }
+
+    public void setLastBreak(Date lastBreak) {
+        this.lastBreak = lastBreak;
+    }
 
     public Integer getId() {
         return id;
@@ -44,6 +56,7 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", lastBreak=" + lastBreak +
                 '}';
     }
 }

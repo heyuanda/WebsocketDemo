@@ -29,8 +29,17 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public List<News> getNews() {
-        return newsMapper.selectAll();
+    public List<News> getNews(News news) {
+        return newsMapper.select(news);
+    }
+
+    @Override
+    public void getNewCount(String uid,Date time) {
+        int count=newsMapper.getNewCount(time);
+        if(count>0){
+            String msg="您有"+count+"条新信息待处理";
+            WebSocket.sendToUser(uid,msg);
+        }
     }
 
 

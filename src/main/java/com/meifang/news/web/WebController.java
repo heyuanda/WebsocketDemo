@@ -79,8 +79,11 @@ public class WebController {
     }
     @RequestMapping("news_list")
     @ResponseBody
-    public List<News> newsList() {
-        return newsService.getNews();
+    public List<News> newsList(HttpSession session) {
+        User user= (User) session.getAttribute("user");
+        News news=new News();
+        news.setAcceptUser(user.getId());
+        return newsService.getNews(news);
     }
 
     @RequestMapping("admin")
@@ -95,6 +98,25 @@ public class WebController {
             return new ResponseResult<Void>(1);
         }else {
             return new ResponseResult<Void>(0);
+        }
+    }
+    @GetMapping("/close")
+    @ResponseBody
+    public void close(HttpSession session){
+        User user= (User) session.getAttribute("user");
+        if(user!=null){
+            user.setLastBreak(new Date());
+            userService.setLastBreak(user);
+        }
+    }
+    @GetMapping("/new_count")
+    @ResponseBody
+    public void newCount(HttpSession session){
+        User user= (User) session.getAttribute("user");
+        if(user!=null){
+            Date time=user.getLastBreak();
+            String uid=user.getId().toString();
+            newsService.getNewCount(uid,time);
         }
     }
 }
